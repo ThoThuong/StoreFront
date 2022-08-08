@@ -3,7 +3,7 @@ I. Setup
 1. `npm i`: install dependencies
 2. Install postgres database
 3. Create database with name: “udacity_store_front” or any name you want
-4. Create .env file and replace your value in to placeholder_your_value
+4. Create .env file and copy there are variables enviroment bellow and then replace placeholder_your_value by your value.
 
   POSTGRES_HOST=placeholder_your_value\
   POSTGRES_PORT=placeholder_your_value\
