@@ -13,7 +13,7 @@ I. Setup
   POSTGRES_PASSWORD=placeholder_your_value\
   BCRYPT_PASSWORD=placeholder_your_value\
   SALT_ROUNDS=placeholder_your_value\
-  TOKEN_SECRET=placeholder_your_value\
+  TOKEN_SECRET=placeholder_your_value
 
 4. `npm run db-up`: migration database
 5. `npm run start`: start on production mode
