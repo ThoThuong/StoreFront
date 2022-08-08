@@ -5,15 +5,15 @@ I. Setup
 3. Create database with name: “udacity_store_front” or any name you want
 4. Create .env file and replace your value in to placeholder_your_value
 
-  POSTGRES_HOST=placeholder_your_value
-  POSTGRES_PORT=placeholder_your_value
-  POSTGRES_PORT_TEST=placeholder_your_value
-  POSTGRES_DB=placeholder_your_value
-  POSTGRES_USER=placeholder_your_value
-  POSTGRES_PASSWORD=placeholder_your_value
-  BCRYPT_PASSWORD=placeholder_your_value
-  SALT_ROUNDS=placeholder_your_value
-  TOKEN_SECRET=placeholder_your_value
+  POSTGRES_HOST=placeholder_your_value_
+  POSTGRES_PORT=placeholder_your_value_
+  POSTGRES_PORT_TEST=placeholder_your_value_
+  POSTGRES_DB=placeholder_your_value_
+  POSTGRES_USER=placeholder_your_value_
+  POSTGRES_PASSWORD=placeholder_your_value_
+  BCRYPT_PASSWORD=placeholder_your_value_
+  SALT_ROUNDS=placeholder_your_value_
+  TOKEN_SECRET=placeholder_your_value_
 
 4. `npm run db-up`: migration database
 5. `npm run start`: start on production mode
