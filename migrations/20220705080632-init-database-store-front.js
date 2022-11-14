@@ -33,6 +33,7 @@ exports.up = function(db) {
     });
   })
   .then(function(data) {
+    console.log(data)
     return db.runSql(data);
   });
 };

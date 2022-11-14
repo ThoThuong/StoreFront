@@ -1,12 +1,17 @@
 {
   "spec_dir": "src/tests",
   "spec_files": [
-    "**/*.spec.ts"
+    "**/*[sS]pec.ts",
+    "!**/*nospec.ts"
   ],
   "helpers": [
     "tests/helpers/**/*.ts",
     "../node_modules/ts-node/register/type-check.js"
   ],
-  "stopSpecOnExpectationFailure": false,
-  "random": true
+  "env": {
+    "failSpecWithNoExpectations": false,
+    "stopSpecOnExpectationFailure": false,
+    "stopOnSpecFailure": false,
+    "random": false
+  }
 }

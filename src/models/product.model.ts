@@ -1,6 +1,8 @@
-import { Pool } from 'pg';
-import dbConnect from '../database/connect';
 import humps from 'humps';
+import { Pool } from 'pg';
+
+import dbConnect from '../database/connect';
+
 export interface Product {
     id?: string;
     name?: string;

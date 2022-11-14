@@ -229,7 +229,7 @@ class UserHandler {
     deleteUser = async (req: Request, res: Response): Promise<any> => {
         try {
             const id = req.params.id;
-
+            console.log('what is this 1: ', id)
             if (!id) {
 
                 return res.status(400).json({
@@ -243,7 +243,7 @@ class UserHandler {
                 });
             }
 
-            const isDelSuccessfully = await this._UserSchemal.deleteUser(id);
+            const isDelSuccessfully = await this._UserSchemal.deleteUser(`${id}`);
 
             if (!isDelSuccessfully) {
                 return res.status(500).json({

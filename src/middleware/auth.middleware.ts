@@ -58,7 +58,6 @@ class Authentication {
       }
       next();
     } catch (err: unknown) {
-      console.log('auth err', err)
       res.status(401).json({
         response: 'Error',
         error: {

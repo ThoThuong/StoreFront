@@ -1,8 +1,8 @@
 import bcrypt from 'bcrypt';
 import humps from 'humps';
 import { Pool } from 'pg';
+
 import dbConnect from '../database/connect';
-import { Order } from './order.model';
 
 const { BCRYPT_PASSWORD, SALT_ROUNDS } = process.env;
 
@@ -137,6 +137,7 @@ export class UserSchemal {
                 const user = rows[0];
 
                 if (bcrypt.compareSync(password + BCRYPT_PASSWORD, user.password)) {
+                    _dbConnect.release();
                     return humps.camelizeKeys(user) as User;
                 }
             }
@@ -164,13 +165,10 @@ export class UserSchemal {
             ) orders`;
             const { rows } = await _dbConnect.query(sqlQueryOder, [userId]);
             const order = rows[0];
-
+            _dbConnect.release();
             return humps.camelizeKeys(order) as UserOrders;
         } catch (err: any) {
             throw new Error(`Can not find the order belonging to user with id, ${userId}. ${err}`);
-        } finally {
-            console.log('release connection db');
-            _dbConnect.release();
         }
     }
 }

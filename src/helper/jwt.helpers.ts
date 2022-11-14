@@ -7,7 +7,7 @@ dotenv.config();
 
 class JWT {
     private SECRET = process.env.TOKEN_SECRET as Secret
-    private TOKEN_LIFE = '24h'
+    private TOKEN_LIFE = '7d'
 
     generateToken = (user: User, secretSignature: Secret = this.SECRET, tokenLife: string = this.TOKEN_LIFE): string | unknown => {
         try {
