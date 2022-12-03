@@ -8,7 +8,6 @@
     "build": "tsc --esModuleInterop src/server.ts --outDir ./dist",
     "start:prod": "npm run build && node dist/server.js",
     "test": "db-migrate --env test up && ENV=test ts-node node_modules/jasmine/bin/jasmine || db-migrate --env test down",
-    "__test": "db-migrate --env test up && ENV=test jasmine-ts --config jasmine.json || db-migrate --env test down",
     "db-up": "db-migrate up",
     "db-down": "db-migrate down"
   },
