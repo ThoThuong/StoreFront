@@ -2,13 +2,14 @@ I. Instructions Setup (db and server):
 
 1. Package installation instructions => `npm i`: install dependencies
 2. Install Db: => Install postgres database
-3. Create DB => open pgadmin ui tool and then Create database with name: “udacity_store_front” or any name you want
+3. Create DB => open pgadmin ui tool and then Create database with name: “udacity_store_front” or any name you want for run on dev enviroment, and “udacity_store_front_test” for run on test enviroment.
 4. Environment variables.=> Create .env file and copy there are variables enviroment bellow and then replace placeholder_your_value by your value.
 
   POSTGRES_HOST=127.0.0.1
   POSTGRES_PORT=5432
   POSTGRES_PORT_TEST=5433
   POSTGRES_DB=udacity_store_front
+  POSTGRES_DB_TEST=udacity_store_front_test
   POSTGRES_USER=postgres
   POSTGRES_PASSWORD=1
   BCRYPT_PASSWORD=0987654321@@
