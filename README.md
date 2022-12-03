@@ -23,3 +23,32 @@ I. Setup
 8. Backend running port: 3000
 9. Backend running unittest port: 3001
 10. Database running port: 5432
+11. Install Postman or ThunderClient extention on vs-code and import collection from the Postman-collection_UDCT_StoreFrontAPI.json file I have attach in this root folder.
+
+II. Introduce Project [List faetures]
+
+a. Authentication by jwt token (token type: bear)
+  1. Register (create User)
+  2. Login
+
+b. Users
+  1. Create User (register)
+  2. Get list Users
+  3. Get detail User
+  4. Get Oder belonging to User
+  5. Update User
+  6. delete User
+
+c. Products
+  1. Create Product
+  2. Get list Products
+  3. Get detail Product
+  4. Update Product
+  5. Delete Product
+
+d. Orders
+  1. Create Order
+  2. Get list Orders
+  3. Get detail Order
+  4. Update Order
+  5. Delete Order
