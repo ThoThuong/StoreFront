@@ -23,7 +23,7 @@ I. Instructions Setup (db and server):
 8. Port number for server => Backend running port: 3000
 9. Port number for server => Backend running unittest port: 3001
 10. Port number for db => Database running port: 5432
-11. Collection of Endpoints => Install Postman or ThunderClient extention on vs-code and import collection from the Postman-collection_UDCT_StoreFrontAPI.json file I have attach in this root folder or I have list all endpoint at the part III of this file.
+11. Collection of Endpoints => Install Postman or ThunderClient extention on vs-code and import collection from the Postman-collection_UDCT_StoreFrontAPI.json file and environment_store_front.json file to start test all of endpoints I have attach in this root folder or I have list all endpoint at the part III of this file.
 
 II. Database schema with column name and type.
   TABLE products (
@@ -55,27 +55,140 @@ II. Database schema with column name and type.
 III. Introduce Project [List faetures] and collection of Endpoints (I have )
 
 a. Authentication by jwt token (token type: bear)
-  1. Register (create User)
-  2. Login
+  1. Register (create User): 
+    endpoint => http://127.0.0.1:3000/users 
+    method => post
+    body => {
+      "firstname": "Thuong",
+      "lastname": "Tran Ngoc",
+      "username": "ThuongTn32",
+      "password": "1"
+    } 
+  2. Login 
+    endpoint => http://127.0.0.1:3000/users/auth
+    method => post
+    body => {
+      "username":"ThuongTn32",
+      "password":"1"
+    } 
 
 b. Users
   1. Create User (register)
+    endpoint => http://127.0.0.1:3000/users 
+    method => post
+    body => {
+      "firstname": "Thuong",
+      "lastname": "Tran Ngoc",
+      "username": "ThuongTn32",
+      "password": "1"
+    }
   2. Get list Users
+    endpoint => http://127.0.0.1:3000/users
+    method: get
+    auth: bear + access_token response from create user or login request
   3. Get detail User
+    endpoint => http://127.0.0.1:3000/users/user_id
+    method: get
+    auth: bear + access_token response from create user or login request
   4. Get Oder belonging to User
+    endpoint => http://127.0.0.1:3000/users/orders/user_id
+    method: get
+    auth: bear + access_token response from create user or login request
   5. Update User
+    endpoint => http://127.0.0.1:3000/users/user_id
+    method: put
+    body => {
+      "firstname": "thuong updated",
+      "lastname": "tran ngoc updated 2"
+    }
   6. delete User
+    endpoint => http://127.0.0.1:3000/users/user_id
+    method => delete
+    auth => bear + access_token response from create user or login request
 
 c. Products
   1. Create Product
+    endpoint => http://127.0.0.1:3000/products
+    method => post
+    auth => bear + access_token response from create user or login request
+    body =>  {
+      "name": "Đôi lứa sánh đôi",
+      "price": "250000"
+    }
+
   2. Get list Products
+    endpoint => http://127.0.0.1:3000/products
+    method => get
+    auth => bear + access_token response from create user or login request
+    body =>  None
+
   3. Get detail Product
+    endpoint => http://127.0.0.1:3000/products/product_id
+    method => Get 
+    auth => bear + access_token response from create user or login request
+    body =>  None
+
   4. Update Product
+    endpoint => http://127.0.0.1:3000/products/product_id
+    method => put
+    auth => bear + access_token response from create user or login request
+    body =>  {
+      "name": "Đôi lứa xứng đôi",
+      "price" : 500000
+    }
+
   5. Delete Product
+    endpoint => http://127.0.0.1:3000/products/product_id
+    method => delete
+    auth => bear + access_token response from create user or login request
+    body =>  None
 
 d. Orders
   1. Create Order
+    endpoint => http://127.0.0.1:3000/orders
+    method => post
+    auth => bear + access_token response from create user or login request
+    body =>  {
+      "userId": user_id,
+      "status": true,
+      "products": [
+        {
+          "productId": product_id,
+          "quantity": 10
+        }
+      ]
+    }
+
   2. Get list Orders
+    endpoint => http://127.0.0.1:3000/orders
+    method => get
+    auth => bear + access_token response from create user or login request
+    body =>  None
+
   3. Get detail Order
+    endpoint => http://127.0.0.1:3000/orders/order_id
+    method => get
+    auth => bear + access_token response from create user or login request
+    body =>  None
+
   4. Update Order
+    endpoint => http://127.0.0.1:3000/orders/order_id
+    method => put
+    auth => bear + access_token response from create user or login request
+    body =>  {
+      "userId": user_id,
+      "status": true,
+      "products": [
+        {
+          "productId": product_id,
+          "quantity": 30
+        }
+      ]
+    }
+
   5. Delete Order
+    endpoint => http://127.0.0.1:3000/orders/order_id
+    method => delete
+    auth => bear + access_token response from create user or login request
+    body =>  None
+  
