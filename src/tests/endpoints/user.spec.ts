@@ -31,13 +31,13 @@ describe('User endpoints', () => {
         access_token = `Bearer ${jwt.generateToken(response_user)}`;
     });
 
-    beforeEach(() => {
-        jasmine.clock().install();
-    });
+    // beforeEach(() => {
+    //     jasmine.clock().install();
+    // });
 
-    afterEach(() => {
-        jasmine.clock().uninstall();
-    });
+    // afterEach(() => {
+    //     jasmine.clock().uninstall();
+    // });
 
     afterAll(async () => {
         if (id_authen_user) {
@@ -51,7 +51,6 @@ describe('User endpoints', () => {
             const res = await request
                 .get('/users')
                 .set('Authorization', access_token);
-            // jasmine.clock().tick(200000);
             expect(res.status).toBe(200);
         } catch (e: unknown) {
             throw new Error(JSON.stringify(e));
@@ -64,7 +63,6 @@ describe('User endpoints', () => {
             const userRp = await request
                 .post('/users')
                 .send(user_data);
-            jasmine.clock().tick(200000);
             const { status } = userRp;
             id = userRp.body.data.user.id;
             expect(status).toEqual(201);
@@ -85,7 +83,6 @@ describe('User endpoints', () => {
             const res = await request
                 .get(`/users/${response_user.id}`)
                 .set('Authorization', access_token);
-            // jasmine.clock().tick(200000);
             expect(res.status).toBe(200);
         } catch (e: unknown) {
             throw new Error(JSON.stringify(e));
@@ -103,7 +100,6 @@ describe('User endpoints', () => {
                 .put(`/users/${response_user.id}`)
                 .send(user_data_updated)
                 .set('Authorization', access_token);
-            // jasmine.clock().tick(200000);
             expect(res.status).toBe(200);
         } catch (e: unknown) {
             throw new Error(JSON.stringify(e));

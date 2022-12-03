@@ -13,13 +13,13 @@ describe("User Schemal", () => {
         userSchemal = new UserSchemal();
     })
 
-    beforeEach(() => {
-        jasmine.clock().install();
-    });
+    // beforeEach(() => {
+    //     jasmine.clock().install();
+    // });
 
-    afterEach(() => {
-        jasmine.clock().uninstall();
-    });
+    // afterEach(() => {
+    //     jasmine.clock().uninstall();
+    // });
 
     it("toBeDefined an index method", () => {
         expect(userSchemal.index).toBeDefined();
@@ -37,74 +37,119 @@ describe("User Schemal", () => {
         expect(userSchemal.deleteUser).toBeDefined();
     })
 
-    it("expect created a user", async () => {
-        const _expect: User = await userSchemal.create(user);
-        if (_expect?.id) {
-            const { username, firstname, lastname } = _expect;
+    it("expect created a user", () => {
+        userSchemal.create(user)
+        .then((result: User) => {
+            if (result?.id) {
+                const { username, firstname, lastname } = result;
+                expect(username).toBe(user.username);
+                expect(firstname).toBe(user.firstname);
+                expect(lastname).toBe(user.lastname);
+
+                if (result?.id) {
+                    userSchemal.deleteUser(result.id);
+                }
+            }
+        })
+        .catch((err: any) => {
+            console.log(err);
+        });
+    });
+
+    it("expect a list of users", () => {
+        let tmpUser!: User;
+        userSchemal.create(user)
+        .then((result: User) => {
+            tmpUser = result;
+            return userSchemal.index();
+        })
+        .then((result: User[]) => {
+            expect(result.length).toBeGreaterThan(0);
+            if (tmpUser && tmpUser?.id) {
+                userSchemal.deleteUser(tmpUser.id);
+            }
+        })
+        .catch((err: any) => {
+            console.log(err);
+        });
+    });
+
+    it("expect the exact user", () => {
+        userSchemal.create(user)
+        .then((result: User)=>{
+            if (!result?.id) {
+                throw new Error("Can't create user");
+            }
+            return userSchemal.read(result.id);
+        })
+        .then((result: User) => {
+            expect(result.id).toEqual(result.id);
+            if (result.id) {
+                userSchemal.deleteUser(result.id);
+            }
+        })
+        .catch((err: any) => {
+            console.log(err);
+        });
+    });
+
+    it("expect deleted a user", () => {
+        userSchemal.create(user)
+        .then((result: User) => {
+            if (!result?.id) {
+                throw new Error("Can't create user");
+            }
+            return userSchemal.deleteUser(result.id);
+        })
+        .then((result: any) => {
+            expect(result).toEqual(true);
+        })
+        .catch((err: any) => {
+            console.log(err);
+        });
+        
+    });
+
+    it("expect updated the user", async () => {
+        userSchemal.create(user)
+        .then((result: User) => {
+            if (!result?.id) {
+                throw new Error("Can't create user");
+            }
+            return userSchemal.update(result.id, {
+                firstname: "Thuong Updated",
+                lastname: "Tran Ngoc Updated",
+            });
+            
+        })
+        .then((result: User) => {
+            const { firstname, lastname } = result;
+            expect(firstname).toEqual("Thuong Updated");
+            expect(lastname).toEqual("Tran Ngoc Updated");
+            if (result?.id) {
+                userSchemal.deleteUser(result.id);
+            }
+        })
+        .catch((err: any) => {
+            console.log(err);
+        });
+        
+    })
+
+    it("expect authenticated the user", () => {
+        userSchemal.create(user)
+        .then((result: User) => {
+            if (!result?.username || !result?.password) {
+                throw new Error("Can't create user");
+            }
+            return userSchemal.authenticate(result.username, result.password);
+        })
+        .then((result: any) => {
+            const { username, firstname, lastname } = result
             expect(username).toBe(user.username);
             expect(firstname).toBe(user.firstname);
             expect(lastname).toBe(user.lastname);
-
-            // if (_expect?.id) {
-            //     await userSchemal.deleteUser(_expect.id);
-            // }
-        }
+            userSchemal.deleteUser(result.id);
+        });
     })
-
-    it("expect a list of users", async () => {
-        // const result: User = await userSchemal.create(user);
-        const _expect = await userSchemal.index();
-        expect(_expect.length).toBeGreaterThan(0);
-        // if (result?.id) {
-        //     await userSchemal.deleteUser(result.id);
-        // }
-
-    })
-
-    it("expect the exact user", async () => {
-        const result: User = await userSchemal.create(user);
-        if (result?.id) {
-            const _expect = await userSchemal.read(result.id);
-            expect(_expect.id).toEqual(result.id);
-            await userSchemal.deleteUser(result?.id);
-        }
-    })
-
-    // it("expect deleted a user", async () => {
-    //     const result: User = await userSchemal.create(user);
-    //     if (result?.id) {
-    //         const _expect = await userSchemal.deleteUser(result.id);
-    //         expect(_expect).toEqual(true);
-    //     }
-    // })
-
-    // it("expect updated the user", async () => {
-    //     const result: User = await userSchemal.create(user);
-    //     if (result?.id) {
-    //         const { firstname, lastname } = await userSchemal.update(result.id, {
-    //             firstname: "Thuong Updated",
-    //             lastname: "Tran Ngoc Updated",
-    //         });
-    //         expect(firstname).toEqual("Thuong Updated");
-    //         expect(lastname).toEqual("Tran Ngoc Updated");
-    //         await userSchemal.deleteUser(result.id);
-    //     }
-    // })
-
-    // it("expect authenticated the user", async () => {
-    //     const result: User = await userSchemal.create(user);
-    //     const _expect = await userSchemal.authenticate(user.username, user.password);
-    //     if (_expect && result?.id) {
-    //         const { username, firstname, lastname } = _expect
-    //         expect(username).toBe(user.username);
-    //         expect(firstname).toBe(user.firstname);
-    //         expect(lastname).toBe(user.lastname);
-    //         await userSchemal.deleteUser(result.id);
-    //     }
-
-    //     // const _expect = await userSchemal.authenticate(user.username, user.password) as User | any;
-    //     // console.log('what is this one??????', _expect)
-    //     // expect(_expect?.error?.mesage).toBe("Wrong credentials. Error: Can not found any user on the credentials.")
-
-    // })
 })

@@ -13,13 +13,13 @@ describe("Product Schemal", () => {
         productSchemal = new ProductSchemal();
     })
 
-    beforeEach(() => {
-        jasmine.clock().install();
-    });
+    // beforeEach(() => {
+    //     jasmine.clock().install();
+    // });
 
-    afterEach(() => {
-        jasmine.clock().uninstall();
-    });
+    // afterEach(() => {
+    //     jasmine.clock().uninstall();
+    // });
 
     it("toBeDefined an index method", () => {
         expect(productSchemal.index).toBeDefined();
@@ -43,61 +43,87 @@ describe("Product Schemal", () => {
 
     it("expect created a product", async () => {
         const result: Product = await productSchemal.create(product);
-        jasmine.clock().tick(200000);
         expect(result.name).toBe(product.name);
         expect(result.price).toBe(product.price);
         if (result?.id) {
             await productSchemal.deleteProduct(result.id);
-            jasmine.clock().tick(200000);
         }
     })
 
     it("expect a list of products", async () => {
         const result: Product = await productSchemal.create(product);
-        jasmine.clock().tick(200000);
         const _expect = await productSchemal.index();
         expect(_expect.length).toBeGreaterThan(0);
         if (result?.id) {
             await productSchemal.deleteProduct(result.id);
-            jasmine.clock().tick(200000);
         }
     })
 
-    it("expect the exact product", async () => {
-        const result: Product = await productSchemal.create(product);
-        jasmine.clock().tick(200000);
-        if (result?.id) {
-            const _expect = await productSchemal.read(result.id);
-            expect(_expect).toEqual(result);
-            await productSchemal.deleteProduct(result.id);
-            jasmine.clock().tick(200000);
-        }
+    it("expect the exact product", () => {
+        let productCreated!: Product;
+
+        productSchemal.create(product)
+        .then((result: Product) => {
+            if (!result?.id) {
+                throw new Error('Can\'t not create product.');
+            }
+            productCreated = result;
+            return productSchemal.read(result.id);
+           
+        })
+        .then((result: Product) => {
+            expect(result.name).toEqual(productCreated.name);
+            if (result.id) {
+                productSchemal.deleteProduct(result.id);
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+            
+        });
 
     })
 
     it("expect updated the product", async () => {
-        const result: Product = await productSchemal.create(product);
-        jasmine.clock().tick(200000);
-        if (result?.id) {
-            const { name, price } = await productSchemal.update(result.id, {
+        productSchemal.create(product)
+        .then((result: Product) => {
+            if (!result?.id) {
+                throw new Error('Can\'t not create product.');
+            }
+            return productSchemal.update(result.id, {
                 name: "Bep lua hong tai ban lan thu 10",
                 price: "400000"
             });
+        })
+        .then((result: Product) => {
+            const { name, price } = result;
             expect(name).toEqual("Bep lua hong tai ban lan thu 10");
-            // expect(price).toEqual(400000);
-            await productSchemal.deleteProduct(result.id);
-            jasmine.clock().tick(200000);
-        }
+            if (result.id) {
+                productSchemal.deleteProduct(result.id);
+            }
+            
+        })
+        .catch((err) => {
+            console.log(err);
+            
+        });
     })
 
-    it("expect deleted the product", async () => {
-        const result: Product = await productSchemal.create(product);
-        jasmine.clock().tick(200000);
-        if (result?.id) {
-            const _expect = await productSchemal.deleteProduct(result.id);
-            jasmine.clock().tick(200000);
+    it("expect deleted the product", () => {
+        productSchemal.create(product)
+        .then((result: Product) => {
+            if (!result?.id) {
+               throw new Error('Can\'t not create product.');
+            }
+            return productSchemal.deleteProduct(result.id);
+        })
+        .then((_expect) => {
             expect(_expect).toBeTruthy();
-        }
+        })
+        .catch((err) => {
+            console.log(err);
+            
+        });
     })
 
 })

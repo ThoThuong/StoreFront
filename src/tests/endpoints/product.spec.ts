@@ -51,7 +51,6 @@ describe('Product endpoints', () => {
                     "name": "Đôi lứa sánh đôi test create book product",
                     "price": "2000000"
                 });
-            jasmine.clock().tick(200000);
             const { status } = res;
             id = res.body.data.product.id;
 
@@ -64,7 +63,6 @@ describe('Product endpoints', () => {
                 await request
                     .delete(`/products/${id}`)
                     .set('Authorization', access_token);
-                jasmine.clock().tick(200000);
             }
 
         }
@@ -95,7 +93,6 @@ describe('Product endpoints', () => {
             const res = await request
                 .get('/products')
                 .set('Authorization', access_token);
-            jasmine.clock().tick(200000);
             expect(res.status).toBe(200);
         } catch (e: unknown) {
             throw new Error(JSON.stringify(e));
@@ -122,7 +119,6 @@ describe('Product endpoints', () => {
             const read = await request
                 .get(`/products/${id}`)
                 .set('Authorization', access_token);
-            jasmine.clock().tick(200000);
             expect(read.status).toBe(200);
 
         } catch (e: unknown) {
@@ -134,7 +130,6 @@ describe('Product endpoints', () => {
                 await request
                     .delete(`/products/${id}`)
                     .set('Authorization', access_token);
-                jasmine.clock().tick(200000);
             }
 
         }
@@ -182,7 +177,6 @@ describe('Product endpoints', () => {
                     "name": "Đôi lứa sánh đôi test create book product update",
                     "price": "2000000"
                 });
-            jasmine.clock().tick(200000);
             expect(put.status).toBe(200);
 
         } catch (e: unknown) {
@@ -193,7 +187,6 @@ describe('Product endpoints', () => {
                 await request
                     .delete(`/products/${id}`)
                     .set('Authorization', access_token);
-                jasmine.clock().tick(200000);
             }
         }
 
@@ -236,7 +229,6 @@ describe('Product endpoints', () => {
             const del = await request
                 .delete(`/products/${id}`)
                 .set('Authorization', access_token);
-            jasmine.clock().tick(200000);
             expect(del.status).toBe(204);
 
         } catch (e: unknown) {
