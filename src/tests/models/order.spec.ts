@@ -102,9 +102,9 @@ describe("Order Model", () => {
     it("show method should return the correct orders", async () => {
         let createdOrder!: Product;
         OrderStoreInstance.create(order)
-            .then((createdOrder: Order) => {
-                createdOrder = createdOrder;
-                return OrderStoreInstance.read(createdOrder?.id || '');
+            .then((result: Order) => {
+                createdOrder = result;
+                return OrderStoreInstance.read(result?.id || '');
             })
             .then((result: Product) => {
                 expect(result.id).toEqual(createdOrder.id);
