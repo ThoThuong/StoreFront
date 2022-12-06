@@ -24,7 +24,7 @@ class AppRouter {
 
 
     init() {
-        this.app.use('/products', this.authentication.auth, productRouters);
+        this.app.use('/products', productRouters);
         this.app.use('/orders', this.authentication.auth, orderRouters);
         this.app.use('/users', userRouters);
     }
