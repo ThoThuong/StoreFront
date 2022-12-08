@@ -119,14 +119,12 @@ c. Products
 
   2. Get list Products
     endpoint => http://127.0.0.1:3000/products
-    method => get
-    auth => bear + access_token response from create user or login request
+    method => Get
     body =>  None
 
   3. Get detail Product
     endpoint => http://127.0.0.1:3000/products/product_id
-    method => Get 
-    auth => bear + access_token response from create user or login request
+    method => Get
     body =>  None
 
   4. Update Product
