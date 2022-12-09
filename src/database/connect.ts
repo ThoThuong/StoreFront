@@ -10,7 +10,7 @@ let clientConnectConfigToDB: ClientConfig = {
   password: process.env.POSTGRES_PASSWORD
 };
 
-const database = (process.env.ENV === 'test' ? process.env.POSTGRES_DB : process.env.POSTGRES_DB) as unknown as string;
+const database = (process.env.ENV === 'test' ? process.env.POSTGRES_DB_TEST : process.env.POSTGRES_DB) as unknown as string;
 
 clientConnectConfigToDB = {
   ...clientConnectConfigToDB,
